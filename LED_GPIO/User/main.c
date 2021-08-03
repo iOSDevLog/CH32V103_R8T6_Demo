@@ -1,47 +1,25 @@
 /********************************** (C) COPYRIGHT *******************************
-* File Name          : main.c
-* Author             : WCH
-* Version            : V1.0.0
-* Date               : 2020/04/30
-* Description        : Main program body.
-*******************************************************************************/
-
-/*
- *@Note
- 串口打印调试例程：
- USART1_Tx(PA9)。
- 本例程演示使用 USART1(PA9) 作打印调试口输出。
-
-*/
-
+ * File Name          : main.c
+ * Author             : WCH
+ * Version            : V1.0.0
+ * Date               : 2020/09/29
+ * Description        : Main program body.
+ *******************************************************************************/
 #include "debug.h"
+#include "led.h"
 
+int main(void) {
+    u8 i = 0;
+    u8 j = 0;
 
-/* Global typedef */
-
-/* Global define */
-
-/* Global Variable */
-
-
-/*******************************************************************************
-* Function Name  : main
-* Description    : Main program.
-* Input          : None
-* Return         : None
-*******************************************************************************/
-int main(void)
-{
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-	Delay_Init();
-	USART_Printf_Init(115200);
-	printf("SystemClk:%d\r\n",SystemCoreClock);
-
-	printf("This is printf example\r\n");
-
-	while(1)
-	{
-
-	}
+    Delay_Init();   // 延时函数初始化
+    LED_Init();     // LED 初始化
+    while (1) {
+        Delay_Ms(250); // 延时 250ms
+        GPIO_WriteBit(GPIOA, GPIO_Pin_0, (i == 0) ? (i = Bit_SET) : (i =
+                                                            Bit_RESET)); // 设置 PA0引脚状态为低电平
+        Delay_Ms(250); // 延时 250ms
+        GPIO_WriteBit(GPIOA, GPIO_Pin_1, (j == 0) ? (j = Bit_SET) : (j =
+                                                            Bit_RESET)); // 设置 PA1引脚状态为低电平
+    }
 }
-
